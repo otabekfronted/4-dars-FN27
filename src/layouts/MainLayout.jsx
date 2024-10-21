@@ -2,7 +2,7 @@ function MainLayout({ children }) {
     return (
         <div>
             <header>
-                <nav className="bg-base-200">
+                <nav className=" bg-base-200 px-10">
                     <div className="navbar align-element">
                         <div className="navbar-start">
                             <a

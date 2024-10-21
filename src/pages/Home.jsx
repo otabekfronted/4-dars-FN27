@@ -23,7 +23,7 @@ function Home() {
 
     return (
         <div>
-            <section className="align-element py-20">
+            <section className="align-element py-20 container mx-auto">
                 <div className="grid lg:grid-cols-2 gap-24 items-center">
                     <div>
                         <h1 className="max-w-2xl text-4xl font-bold tracking-tight sm:text-6xl">
@@ -68,25 +68,41 @@ function Home() {
                         </div>
                     </div>
                 </div>
+                <div className="border-b border-base-300 pb-5">
+                    <h2 className="text-3xl font-medium">Featured Products</h2>
+                </div>
+                <div className="wrapper pt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {products.length > 0 &&
+                        products.map(function (product) {
+                            return (
+                                <div className="pt-12 grid" key={product.id}>
+                                    <a
+                                        className="card shadow-xl hover:shadow-2xl transition duration-300"
+                                        onClick={() =>
+                                            handleRedirect(product.id)
+                                        }
+                                    >
+                                        <figure className="px-4 pt-4">
+                                            <img
+                                                src={product.attributes.image}
+                                                alt="avant-garde lamp"
+                                                className="rounded-xl h-64 md:h-48 w-full object-cover"
+                                            />
+                                        </figure>
+                                        <div className="card-body items-center text-center">
+                                            <h2 className="card-title capitalize ">
+                                                {product.attributes.title}
+                                            </h2>
+                                            <span className="text-secondary">
+                                                {product.attributes.price} $
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            );
+                        })}
+                </div>
             </section>
-            <div className="wrapper container mx-auto flex flex-wrap gap-3 justify-center">
-                {products.length > 0 &&
-                    products.map(function (product) {
-                        return (
-                            <div
-                                className="w-1/4 shadow-md rounded-md "
-                                onClick={() => handleRedirect(product.id)}
-                                key={product.id}
-                            >
-                                <img
-                                    src={product.attributes.image}
-                                    className="h-[300px] w-full object=cover cursor-pointer"
-                                />
-                                <h3>{product.attributes.title}</h3>
-                            </div>
-                        );
-                    })}
-            </div>
         </div>
     );
 }
