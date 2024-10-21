@@ -36,14 +36,27 @@ function Details() {
 
                         <div className="flex gap-1">
                             {product.attributes.colors.length > 0 &&
-                                product.attributes.colors.map((color) => {
-                                    return (
-                                        <span
-                                            style={{ backgroundColor: color }}
-                                            className={`block w-3 h-3 rounded-full  cursor-pointer`}
-                                        ></span>
-                                    );
-                                })}
+                                product.attributes.colors.map(
+                                    (colorProduct) => {
+                                        return (
+                                            <span
+                                                key={colorProduct.id}
+                                                style={{
+                                                    backgroundColor:
+                                                        colorProduct,
+                                                    border:
+                                                        color == colorProduct
+                                                            ? "1px solid black"
+                                                            : "none",
+                                                }}
+                                                className={`block w-3 h-3 rounded-full  cursor-pointer`}
+                                                onClick={() => {
+                                                    setColor(colorProduct);
+                                                }}
+                                            ></span>
+                                        );
+                                    }
+                                )}
                         </div>
                     </div>
                 </>
