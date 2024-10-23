@@ -1,7 +1,47 @@
+import { Link, useLocation } from "react-router-dom";
+import { CartContext } from "../App";
+import { useContext, useEffect, useState } from "react";
+
 function MainLayout({ children }) {
+    const location = useLocation();
+    const { cart, setCart } = useContext(CartContext);
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        let sum = 0;
+        cart.forEach((element) => {
+            sum += Number(element.count);
+        });
+        setCount(sum);
+    }, [cart]);
+
     return (
         <div>
-            <header>
+            <header className="bg-neutral">
+                <div className="mx-auto container py-2 align-element flex justify-center sm:justify-end">
+                    <div className="flex text-white gap-x-6 justify-center items-center">
+                        <a
+                            className={`link link-hover text-xs sm:text-sm ${
+                                location.pathname === "/login"
+                                    ? "font-bold"
+                                    : ""
+                            }`}
+                            href="/login"
+                        >
+                            Sign in / Guest
+                        </a>
+                        <a
+                            className={`link link-hover text-xs sm:text-sm ${
+                                location.pathname === "/register"
+                                    ? "font-bold"
+                                    : ""
+                            }`}
+                            href="/register"
+                        >
+                            Create Account
+                        </a>
+                    </div>
+                </div>
                 <nav className=" bg-base-200 px-10">
                     <div className="navbar align-element">
                         <div className="navbar-start">
@@ -35,27 +75,50 @@ function MainLayout({ children }) {
                                     <li>
                                         <a
                                             aria-current="page"
-                                            className="capitalize"
+                                            className={`capitalize ${
+                                                location.pathname === "/"
+                                                    ? "bg-black text-white"
+                                                    : ""
+                                            }`}
                                             href="/"
                                         >
                                             Home
                                         </a>
                                     </li>
                                     <li>
-                                        <a className="capitalize" href="/about">
+                                        <a
+                                            className={`capitalize ${
+                                                location.pathname === "/about"
+                                                    ? "bg-black text-white"
+                                                    : ""
+                                            }`}
+                                            href="/about"
+                                        >
                                             About
                                         </a>
                                     </li>
                                     <li>
                                         <a
-                                            className="capitalize"
+                                            className={`capitalize ${
+                                                location.pathname ===
+                                                "/products"
+                                                    ? "bg-black text-white"
+                                                    : ""
+                                            }`}
                                             href="/products"
                                         >
                                             Products
                                         </a>
                                     </li>
                                     <li>
-                                        <a className="capitalize" href="/cart">
+                                        <a
+                                            className={`capitalize ${
+                                                location.pathname === "/cart"
+                                                    ? "bg-black text-white"
+                                                    : ""
+                                            }`}
+                                            href="/cart"
+                                        >
                                             Cart
                                         </a>
                                     </li>
@@ -68,24 +131,49 @@ function MainLayout({ children }) {
                                 <li>
                                     <a
                                         aria-current="page"
-                                        className="capitalize"
+                                        className={`capitalize ${
+                                            location.pathname === "/"
+                                                ? "bg-black text-white"
+                                                : ""
+                                        }`}
                                         href="/"
                                     >
                                         Home
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="capitalize" href="/about">
+                                    <a
+                                        className={`capitalize ${
+                                            location.pathname === "/about"
+                                                ? "bg-black text-white"
+                                                : ""
+                                        }`}
+                                        href="/about"
+                                    >
                                         About
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="capitalize" href="/products">
+                                    <a
+                                        className={`capitalize ${
+                                            location.pathname === "/products"
+                                                ? "bg-black text-white"
+                                                : ""
+                                        }`}
+                                        href="/products"
+                                    >
                                         Products
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="capitalize" href="/cart">
+                                    <a
+                                        className={`capitalize ${
+                                            location.pathname === "/cart"
+                                                ? "bg-black text-white"
+                                                : ""
+                                        }`}
+                                        href="/cart"
+                                    >
                                         Cart
                                     </a>
                                 </li>
@@ -133,7 +221,7 @@ function MainLayout({ children }) {
                                         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
                                     </svg>
                                     <span className="badge badge-sm badge-primary indicator-item">
-                                        0
+                                        {count}
                                     </span>
                                 </div>
                             </a>

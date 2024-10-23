@@ -13,6 +13,7 @@ import Checkout from "./pages/Checkout";
 import ErrorPage from "./pages/ErrorPage";
 import MainLayout from "./layouts/MainLayout";
 import { createContext, useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 export const CartContext = createContext();
 export const ThemeContext = createContext();
@@ -21,8 +22,14 @@ function App() {
     const [token, setToken] = useState(localStorage.getItem("token"));
     const [cart, setCart] = useState([]);
     const [theme, setTheme] = useState("light");
+    // let params = useLocation();
+    console.log(token);
 
-    let params = useLocation();
+    useEffect(() => {
+        if (localStorage.getItem("cart")) {
+            setCart(JSON.parse(localStorage.getItem("cart")));
+        }
+    }, []);
 
     useEffect(() => {
         if (localStorage.getItem("token")) {
@@ -41,7 +48,6 @@ function App() {
             }
         }
     }, [navigate]);
-    console.log(token);
 
     function PrivateRouter({ isAuth, children }) {
         if (!isAuth) {
@@ -53,6 +59,18 @@ function App() {
     return (
         <ThemeContext.Provider value={{ theme, setTheme }}>
             <CartContext.Provider value={{ cart, setCart }}>
+                <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                    toastOptions={{
+                        duration: 3000,
+                        style: {
+                            background: "#333",
+                            color: "#fff",
+                            marginTop: "50px",
+                        },
+                    }}
+                />
                 <Routes>
                     <Route
                         path="/"

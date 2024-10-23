@@ -43,28 +43,17 @@ function Home() {
                     </div>
                     <div className="hidden h-[28rem] lg:carousel carousel-center p-4 space-x-4 bg-neutral rounded-box">
                         <div className="carousel-item">
-                            <img
-                                src="/assets/hero1-deae5a1f.webp"
-                                className="rounded-box h-full w-80 object-cover"
-                            />
-                        </div>
-                        <div className="carousel-item">
-                            <img
-                                src="/assets/hero2-2271e3ad.webp"
-                                className="rounded-box h-full w-80 object-cover"
-                            />
-                        </div>
-                        <div className="carousel-item">
-                            <img
-                                src="/assets/hero3-a83f0357.webp"
-                                className="rounded-box h-full w-80 object-cover"
-                            />
-                        </div>
-                        <div className="carousel-item">
-                            <img
-                                src="/assets/hero4-4b9de90e.webp"
-                                className="rounded-box h-full w-80 object-cover"
-                            />
+                            {products.length > 0 &&
+                                products.map(function (product) {
+                                    return (
+                                        <figure key={product.id}>
+                                            <img
+                                                src={product.attributes.image}
+                                                className=" px-2 rounded-box h-full w-80 object-cover"
+                                            />
+                                        </figure>
+                                    );
+                                })}
                         </div>
                     </div>
                 </div>
@@ -77,7 +66,7 @@ function Home() {
                             return (
                                 <div className="pt-12 grid" key={product.id}>
                                     <a
-                                        className="card shadow-xl hover:shadow-2xl transition duration-300"
+                                        className="card cursor-pointer shadow-xl hover:shadow-2xl transition duration-300"
                                         onClick={() =>
                                             handleRedirect(product.id)
                                         }
