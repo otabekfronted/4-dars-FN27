@@ -21,7 +21,7 @@ function MainLayout({ children }) {
         localStorage.removeItem("token");
         localStorage.removeItem("userName");
         setToken(null);
-        setUserName("Guest"); // Reset to Guest
+        setUserName("Guest");
     };
 
     return (
@@ -96,14 +96,11 @@ function MainLayout({ children }) {
                             >
                                 C
                             </Link>
-                            {/* Dropdown for mobile */}
                             <div className="dropdown">
                                 <label
                                     tabIndex="0"
                                     className="btn btn-ghost lg:hidden"
-                                >
-                                    {/* Mobile menu icon */}
-                                </label>
+                                ></label>
                                 <ul
                                     tabIndex="0"
                                     className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52"

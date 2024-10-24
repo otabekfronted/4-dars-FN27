@@ -1,11 +1,32 @@
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 
 function Checkout() {
     const navigate = useNavigate();
-    function handleSubmit() {
-        navigate("/orders");
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+
+    function handleNameChange(e) {
+        setName(e.target.value);
     }
+
+    function handleAddressChange(e) {
+        setAddress(e.target.value);
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        const orderData = [
+            {
+                name: name,
+                address: address,
+                date: new Date().toISOString(),
+            },
+        ];
+        localStorage.setItem("orderData", JSON.stringify(orderData));
+        navigate("/orders"); // Redirect to orders page after saving
+    }
+
     return (
         <div className="container mx-auto">
             <section className="align-element py-20">
@@ -16,8 +37,7 @@ function Checkout() {
                 </div>
                 <div className="mt-8 grid gap-8 md:grid-cols-2 items-start">
                     <form
-                        method="post"
-                        action="/checkout"
+                        onSubmit={handleSubmit}
                         className="flex flex-col gap-y-4"
                     >
                         <h4 className="font-medium text-xl capitalize">
@@ -33,6 +53,8 @@ function Checkout() {
                                 type="text"
                                 name="name"
                                 className="input input-bordered"
+                                onChange={handleNameChange}
+                                value={name}
                             />
                         </div>
                         <div className="form-control">
@@ -45,13 +67,14 @@ function Checkout() {
                                 type="text"
                                 name="address"
                                 className="input input-bordered"
+                                onChange={handleAddressChange}
+                                value={address}
                             />
                         </div>
                         <div className="mt-4">
                             <button
                                 type="submit"
                                 className="btn btn-primary btn-block"
-                                onClick={handleSubmit}
                             >
                                 Place Your Order
                             </button>

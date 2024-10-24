@@ -40,7 +40,6 @@ function Products() {
                         />
                     </div>
 
-                    {/* Category */}
                     <div className="form-control">
                         <label htmlFor="category" className="label">
                             <span className="label-text capitalize">
@@ -61,7 +60,6 @@ function Products() {
                         </select>
                     </div>
 
-                    {/* Company */}
                     <div className="form-control">
                         <label htmlFor="company" className="label">
                             <span className="label-text capitalize">
@@ -82,7 +80,6 @@ function Products() {
                         </select>
                     </div>
 
-                    {/* Order */}
                     <div className="form-control">
                         <label htmlFor="order" className="label">
                             <span className="label-text capitalize">
@@ -101,7 +98,6 @@ function Products() {
                         </select>
                     </div>
 
-                    {/* Price */}
                     <div className="form-control">
                         <label htmlFor="price" className="label cursor-pointer">
                             <span className="label-text capitalize">
@@ -126,7 +122,6 @@ function Products() {
                         </div>
                     </div>
 
-                    {/* Free Shipping */}
                     <div className="form-control items-center">
                         <label
                             htmlFor="shipping"
@@ -143,7 +138,6 @@ function Products() {
                         />
                     </div>
 
-                    {/* Buttons */}
                     <button type="submit" className="btn btn-primary btn-sm">
                         search
                     </button>
@@ -152,7 +146,6 @@ function Products() {
                     </a>
                 </form>
 
-                {/* Products Header */}
                 <div className="flex justify-between items-center mt-8 border-b border-base-300 pb-5">
                     <h4 className="font-medium text-md">
                         {card.length} products
@@ -223,7 +216,6 @@ function Products() {
                     ))}
                 </div>
 
-                {/* Pagination */}
                 <div className="mt-16 flex justify-end">
                     <div className="join">
                         <button className="btn btn-xs sm:btn-md join-item">

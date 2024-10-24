@@ -8,7 +8,7 @@ function Login() {
 
     const navigate = useNavigate();
     const handleLogin = async (e) => {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault();
 
         try {
             const response = await fetch(
@@ -19,7 +19,7 @@ function Login() {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        identifier: email, // Use 'identifier' for email in Strapi
+                        identifier: email,
                         password,
                     }),
                 }
@@ -28,11 +28,9 @@ function Login() {
             const data = await response.json();
 
             if (response.ok) {
-                // Login successful
                 setMessage("Login successful!");
                 navigate("/");
             } else {
-                // Handle error
                 setMessage(data.message || "Login failed. Please try again.");
             }
         } catch (error) {

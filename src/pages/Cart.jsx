@@ -39,9 +39,9 @@ function Cart() {
         const token = localStorage.getItem("token");
 
         if (token) {
-            navigate("/checkout"); // Redirect to checkout page if logged in
+            navigate("/checkout");
         } else {
-            navigate("/login"); // Redirect to login page if not logged in
+            navigate("/login");
         }
     };
 

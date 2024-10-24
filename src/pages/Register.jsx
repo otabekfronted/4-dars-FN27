@@ -13,7 +13,6 @@ function Register() {
         e.preventDefault();
 
         try {
-            // Register user
             const registerResponse = await fetch(
                 "https://strapi-store-server.onrender.com/api/auth/local/register",
                 {
@@ -28,7 +27,6 @@ function Register() {
             const registerData = await registerResponse.json();
 
             if (registerResponse.ok) {
-                // Now log in the user
                 const loginResponse = await fetch(
                     "https://strapi-store-server.onrender.com/api/auth/local",
                     {
@@ -43,12 +41,11 @@ function Register() {
                 const loginData = await loginResponse.json();
 
                 if (loginResponse.ok) {
-                    // Save the token
                     localStorage.setItem("token", loginData.jwt);
                     setMessage(
                         "Registration and login successful! Redirecting..."
                     );
-                    navigate("/login"); // Redirect to the orders page or any other page
+                    navigate("/login");
                 } else {
                     setMessage(
                         loginData.message || "Login failed after registration."
@@ -74,7 +71,6 @@ function Register() {
             >
                 <h4 className="text-center text-3xl font-bold">Register</h4>
 
-                {/* Username Input */}
                 <div className="form-control">
                     <label htmlFor="username" className="label">
                         <span className="label-text capitalize">Username</span>
@@ -89,7 +85,6 @@ function Register() {
                     />
                 </div>
 
-                {/* Email Input */}
                 <div className="form-control">
                     <label htmlFor="email" className="label">
                         <span className="label-text capitalize">Email</span>
@@ -104,7 +99,6 @@ function Register() {
                     />
                 </div>
 
-                {/* Password Input */}
                 <div className="form-control">
                     <label htmlFor="password" className="label">
                         <span className="label-text capitalize">Password</span>
@@ -119,19 +113,16 @@ function Register() {
                     />
                 </div>
 
-                {/* Register Button */}
                 <div className="mt-4">
                     <button type="submit" className="btn btn-primary btn-block">
                         Register
                     </button>
                 </div>
 
-                {/* Message Display */}
                 {message && (
                     <p className="text-center text-red-500">{message}</p>
                 )}
 
-                {/* Link to Login */}
                 <p className="text-center">
                     Already a member?
                     <a
