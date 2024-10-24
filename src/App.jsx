@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 // pages
 import Home from "./pages/Home";
@@ -23,6 +23,7 @@ function App() {
     const [cart, setCart] = useState([]);
     const [theme, setTheme] = useState("light");
     // let params = useLocation();
+
     console.log(token);
 
     useEffect(() => {
@@ -50,9 +51,12 @@ function App() {
     }, [navigate]);
 
     function PrivateRouter({ isAuth, children }) {
+        console.log(isAuth);
+
         if (!isAuth) {
             navigate("/login");
         }
+
         return children;
     }
 

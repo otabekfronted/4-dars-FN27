@@ -1,30 +1,45 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+
     const navigate = useNavigate();
+    const handleLogin = async (e) => {
+        e.preventDefault(); // Prevent default form submission
 
-    function handleLogin(e) {
-        e.preventDefault();
+        try {
+            const response = await fetch(
+                "https://strapi-store-server.onrender.com/api/auth/local",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        identifier: email, // Use 'identifier' for email in Strapi
+                        password,
+                    }),
+                }
+            );
 
-        // localStorage'dan foydalanuvchi ma'lumotlarini olish
-        const storedUser = JSON.parse(localStorage.getItem("user"));
+            const data = await response.json();
 
-        if (
-            storedUser &&
-            storedUser.email === email &&
-            storedUser.password === password
-        ) {
-            toast.success("Login successful!");
-            localStorage.setItem("token", "dummyToken"); // Tokenni saqlash
-            navigate("/"); // Home sahifasiga yo'naltirish
-        } else {
-            toast.error("Invalid credentials");
+            if (response.ok) {
+                // Login successful
+                setMessage("Login successful!");
+                navigate("/");
+            } else {
+                // Handle error
+                setMessage(data.message || "Login failed. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            setMessage("An error occurred. Please try again.");
         }
-    }
+    };
 
     return (
         <section className="h-screen grid place-items-center">
@@ -33,43 +48,60 @@ function Login() {
                 className="card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4"
             >
                 <h4 className="text-center text-3xl font-bold">Login</h4>
+
+                {/* Email Input */}
                 <div className="form-control">
-                    <label htmlFor="email" className="label">
-                        <span className="label-text">Email</span>
+                    <label htmlFor="identifier" className="label">
+                        <span className="label-text capitalize">Email</span>
                     </label>
                     <input
                         type="email"
-                        id="email"
+                        name="identifier"
                         className="input input-bordered"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </div>
+
+                {/* Password Input */}
                 <div className="form-control">
                     <label htmlFor="password" className="label">
-                        <span className="label-text">Password</span>
+                        <span className="label-text capitalize">Password</span>
                     </label>
                     <input
                         type="password"
-                        id="password"
+                        name="password"
                         className="input input-bordered"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                 </div>
-                <button
-                    type="submit"
-                    className="btn btn-primary btn-block mt-4"
-                >
-                    Login
+
+                {/* Login Button */}
+                <div className="mt-4">
+                    <button type="submit" className="btn btn-primary btn-block">
+                        Login
+                    </button>
+                </div>
+
+                {/* Guest User Button */}
+                <button type="button" className="btn btn-secondary btn-block">
+                    Guest User
                 </button>
-                <p className="text-center mt-4">
-                    Not registered yet?
+
+                {/* Message Display */}
+                {message && (
+                    <p className="text-center text-red-500">{message}</p>
+                )}
+
+                {/* Link to Register */}
+                <p className="text-center">
+                    Not a member yet?
                     <a
+                        className="ml-2 link link-hover link-primary capitalize"
                         href="/register"
-                        className="link link-hover link-primary"
                     >
                         Register
                     </a>
